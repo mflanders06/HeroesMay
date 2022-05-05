@@ -4,7 +4,6 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Hero } from './hero';
-import { HEROES } from './mock-heroes';
 import { MessageService } from './message.service';
 
 
@@ -40,6 +39,7 @@ export class HeroService {
 
   /** PUT: update the hero on the server */
   updateHero(hero: Hero): Observable<any> {
+    console.log(hero)
     return this.http.put(this.heroesUrl, hero, this.httpOptions).pipe(
       tap(_ => this.log(`update hero id=${hero.id}`)),
       catchError(this.handleError<any>('updateHero'))
@@ -67,7 +67,7 @@ export class HeroService {
   }
 
   /* GET heroes whose name contains search term */
-  serachHeroes(term: string): Observable<Hero[]> {
+  searchHeroes(term: string): Observable<Hero[]> {
     if (!term.trim()) {
       //if not search term, return empty hero array.
       return of([]);
